@@ -7,8 +7,8 @@ import os.path
 site_media = os.path.join(os.path.dirname(__file__), 'site_media')
 
 # Uncomment the next two lines to enable the admin:
-# from django.contrib import admin
-# admin.autodiscover()
+from django.contrib import admin
+admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
@@ -19,8 +19,8 @@ urlpatterns = patterns('',
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
-    # url(r'^admin/', include(admin.site.urls)),
-    (r'^catalog/$', home),
+    url(r'^admin/', include(admin.site.urls)),
+    (r'^', include('catalog.urls')),
 )
 
 
