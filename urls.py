@@ -23,6 +23,8 @@ urlpatterns = patterns('',
     (r'^', include('catalog.urls')),
 )
 
+handler404 = 'djecomstore.views.file_not_found_404'
+
 
 if settings.DEBUG:
 	urlpatterns += patterns('',
