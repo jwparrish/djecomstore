@@ -21,6 +21,7 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
     (r'^', include('catalog.urls')),
+    (r'^cart/', include('cart.urls')),
 )
 
 handler404 = 'djecomstore.views.file_not_found_404'
