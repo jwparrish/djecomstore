@@ -41,8 +41,8 @@ def show_product(request, product_slug, template_name='catalog/product.html'):
 	else:
 		# its a GET, create the unbound form.  Note request as a kwarg
 		form = ProductAddToCartForm(request=request, label_suffix=':')
-		# assign the hidden input the product slug
-		form.fields['product_slug'].widget.attrs['value'] = product_slug
-		# set the test cookie on our first GET request
-		request.session.set_test_cookie()
-		return render_to_response('catalog/product.html', locals(), context_instance=RequestContext(request))
+	# assign the hidden input the product slug
+	form.fields['product_slug'].widget.attrs['value'] = product_slug
+	# set the test cookie on our first GET request
+	request.session.set_test_cookie()
+	return render_to_response('catalog/product.html', locals(), context_instance=RequestContext(request))
