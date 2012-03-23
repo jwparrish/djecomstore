@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load catalog_tags %}
 
 {% block site_wrapper %}
 	<div id="main">
@@ -6,7 +7,7 @@
 		<div id="banner">
 			<div class="bannerIEPadder">
 			<div class="cart_box">
-			[link to cart here]
+				{% cart_box request %}
 			</div>
 			Modern Musician
 			</div>
@@ -21,7 +22,7 @@
 				<div class="sidebarIEPadder">
 					[search box here]
 					<br />
-					{% include "tags/category_list.html" %}
+					{% category_list request.path %}
 				</div>
 			</div>
 			<div id="content">
