@@ -10,13 +10,16 @@ class CartItem(models.Model):
 	class Meta:
 		db_table = 'cart_items'
 		ordering = ['date_added']
-		
+	
+	@property
 	def total(self):
 		return self.quantity * self.product.price
-		
+	
+	@property
 	def name(self):
 		return self.product.name
-		
+	
+	@property
 	def price(self):
 		return self.product.price
 		

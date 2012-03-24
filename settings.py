@@ -129,6 +129,7 @@ INSTALLED_APPS = (
     'djecomstore.utils',
     'djecomstore.cart',
     'django.contrib.flatpages',
+    'djecomstore.checkout',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -166,3 +167,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 	'djecomstore.utils.context_processors.ecomstore',
 )
 	
+GOOGLE_CHECKOUT_MERCHANT_ID = '750505259834728'
+GOOGLE_CHECKOUT_MERCHANT_KEY = 'fNyXgVcP1oEX54kHssgqHQ'
+GOOGLE_CHECKOUT_URL = 'https://sandbox.google.com/checkout/api/v2/merchantCheckout/Merchant/' + GOOGLE_CHECKOUT_MERCHANT_ID

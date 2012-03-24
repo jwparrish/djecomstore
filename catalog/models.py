@@ -52,6 +52,7 @@ class Product(models.Model):
 	def get_absolute_url(self):
 		return ('catalog_product', (), {'product_slug': self.slug })
 		
+	@property
 	def sale_price(self):
 		if self.old_price > self.price:
 			return self.price
