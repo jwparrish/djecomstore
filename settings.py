@@ -169,4 +169,4 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 	
 GOOGLE_CHECKOUT_MERCHANT_ID = '750505259834728'
 GOOGLE_CHECKOUT_MERCHANT_KEY = 'fNyXgVcP1oEX54kHssgqHQ'
-GOOGLE_CHECKOUT_URL = 'https://sandbox.google.com/checkout/api/v2/merchantCheckout/Merchant/' + GOOGLE_CHECKOUT_MERCHANT_ID
+GOOGLE_CHECKOUT_URL = 'https://sandbox.google.com/checkout/api/checkout/v2/merchantCheckout/Merchant/' + GOOGLE_CHECKOUT_MERCHANT_ID
