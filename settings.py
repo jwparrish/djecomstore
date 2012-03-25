@@ -6,6 +6,9 @@ CURRENT_PATH = os.path.abspath(os.path.dirname(__file__).decode('utf-8')).replac
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+# Change to true before deploying into production
+ENABLE_SSL = False
+
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
@@ -102,6 +105,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
+    'djecomstore.SSLMiddleware.SSLRedirect',
 )
 
 ROOT_URLCONF = 'djecomstore.urls'
