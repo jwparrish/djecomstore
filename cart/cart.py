@@ -89,7 +89,7 @@ def cart_subtotal(request):
 	return cart_total
 	
 def is_empty(request):
-	return cart_item_count(request) == 0
+	return cart_distinct_item_count(request) == 0
 	
 def empty_cart(request):
 	user_cart = get_cart_items(request)

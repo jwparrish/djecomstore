@@ -8,13 +8,13 @@ from djecomstore.checkout.models import Order, OrderItem
 from djecomstore.checkout import checkout
 from djecomstore.cart import cart
 
-def show_checkout(request, template_name='checkout/checkout.html')
+def show_checkout(request, template_name='checkout/checkout.html'):
 	if cart.is_empty(request):
 		cart_url = urlresolvers.reverse('show_cart')
 		return HttpResponseRedirect(cart_url)
 	if request.method == 'POST':
 		postdata = request.POST.copy()
-		from = CheckoutForm(postdata)
+		form = CheckoutForm(postdata)
 		if form.is_valid():
 			response = checkout.process(request)
 			order_number = response.get('order_number', 0)

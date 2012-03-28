@@ -9,7 +9,7 @@
 			<li>{{ error_message }}</li>
 		</ul>
 	{%  endif %}
-	<form action="." method="post">
+	<form action="." method="post"> {% csrf_token %}
 		<fieldset class="checkout">
 			<legend>Contact Info</legend>
 				<table>
@@ -35,8 +35,8 @@
 			<legend>Billing Info</legend>
 			<table>
 				{% form_table_row form.billing_name %}
-				{% form_table_row form.billing.address_1 %}
-				{% form_table_row form.billing.address_2 %}
+				{% form_table_row form.billing_address_1 %}
+				{% form_table_row form.billing_address_2 %}
 				{% form_table_row form.billing_city %}
 				{% form_table_row form.billing_state %}
 				{% form_table_row form.billing_zip %}
