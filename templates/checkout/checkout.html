@@ -4,6 +4,9 @@
 
 {% block content %}
 	<h1>Checkout</h1>
+	{% if message %}
+		<style="color: #F00;">{{ message }}</style><br  /><br />
+	{% endif %}
 	{% if error_message %}
 		<ul class="errorlist">
 			<li>{{ error_message }}</li>

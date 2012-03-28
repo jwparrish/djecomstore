@@ -23,6 +23,8 @@ def show_checkout(request, template_name='checkout/checkout.html'):
 				request.session['order_number'] = order_number
 				receipt_url = urlresolvers.reverse('checkout_receipt')
 				return HttpResponseRedirect(receipt_url)
+			else:
+				message = 'Somethings broke'
 		else:
 			error_message = 'Correct the errors below'
 	else:

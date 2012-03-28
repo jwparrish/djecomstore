@@ -18,7 +18,7 @@ def do_auth_capture(amount='0.00', card_num=None, exp_date=None,card_cvv=None):
 					'x_card_code': card_cvv
 				}
 	params = urllib.urlencode(raw_params)
-	headers = {'content-type': 'application/x-ww-form-urlencoded','content-length':len(params)}
+	headers = {'content-type': 'application/x-www-form-urlencoded','content-length':len(params)}
 	post_url = settings.AUTHNET_POST_URL
 	post_path = settings.AUTHNET_POST_PATH
 	cn = httplib.HTTPSConnection(post_url,httplib.HTTPS_PORT)
