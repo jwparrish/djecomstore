@@ -178,5 +178,4 @@ GOOGLE_CHECKOUT_URL = 'https://sandbox.google.com/checkout/api/checkout/v2/merch
 AUTHNET_POST_URL = 'test.authorize.net'
 AUTHNET_POST_PATH = '/gateway/transact.dll'
 AUTHNET_LOGIN = '6mZxu88KF89'
-AUTHNET_KEY = '8RBLH325xn385wtP'
-#AUTHNET_KEY = '6xDXSw679P4z98ZS'
+AUTHNET_KEY = '4J89zqLr5Te9t9JN'
