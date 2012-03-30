@@ -46,7 +46,7 @@ def create_order(request, transaction_id):
 	checkout_form = CheckoutForm(request.POST, instance=order)
 	order = checkout_form.save(commit=False)
 	order.transaction_id = transaction_id
-	order.ip_address = request.META.get('REMOVE_ADDR')
+	order.ip_address = request.META.get('REMOTE_ADDR')
 	order.user = None
 	order.status = Order.SUBMITTED
 	order.save()
