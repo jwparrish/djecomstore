@@ -134,6 +134,7 @@ INSTALLED_APPS = (
     'djecomstore.cart',
     'django.contrib.flatpages',
     'djecomstore.checkout',
+    'djecomstore.accounts',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -179,3 +180,5 @@ AUTHNET_POST_URL = 'test.authorize.net'
 AUTHNET_POST_PATH = '/gateway/transact.dll'
 AUTHNET_LOGIN = '6mZxu88KF89'
 AUTHNET_KEY = '4J89zqLr5Te9t9JN'
+
+LOGIN_REDIRECT_URL = '/accounts/my_account/'

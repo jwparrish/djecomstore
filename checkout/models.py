@@ -55,6 +55,10 @@ class Order(models.Model):
 			total += item.total
 		return total
 		
+	@models.permalink
+	def get_absolute_url(self):
+		return ('order_details', (), { 'order_id': self.id })
+		
 class OrderItem(models.Model):
 	product = models.ForeignKey(Product)
 	quantity = models.IntegerField(default=1)
