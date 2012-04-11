@@ -182,3 +182,5 @@ AUTHNET_LOGIN = '6mZxu88KF89'
 AUTHNET_KEY = '4J89zqLr5Te9t9JN'
 
 LOGIN_REDIRECT_URL = '/accounts/my_account/'
+
+AUTH_PROFILE_MODULE = 'accounts.userprofile'

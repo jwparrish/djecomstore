@@ -65,6 +65,11 @@ def create_order(request, transaction_id):
 			oi.save()
 		# all set, empty cart
 		cart.empty_cart(request)
-	# return the new order object
+	
+		# save profile info for future orders
+		if request.user.is_authenticated():
+			from djecomstore.accounts import profile
+			profile.set(request)
+			
 	return order
 	

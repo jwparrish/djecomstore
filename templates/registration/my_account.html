@@ -7,7 +7,7 @@
 	<fieldset class="my_account">
 		<legend>Order History</legend>
 		{% for order in orders %}
-			<a href="{{ order.get_absolute_url %}}">
+			<a href="{{ order.get_absolute_url }}">
 			Order #{{ order.id }} - {{ order.date|date }} (view)
 			</a>
 			<br />

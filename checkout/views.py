@@ -8,6 +8,8 @@ from djecomstore.checkout.models import Order, OrderItem
 from djecomstore.checkout import checkout
 from djecomstore.cart import cart
 
+from djecomstore.accounts import profile
+
 def show_checkout(request, template_name='checkout/checkout.html'):
 	if cart.is_empty(request):
 		cart_url = urlresolvers.reverse('show_cart')
@@ -23,12 +25,15 @@ def show_checkout(request, template_name='checkout/checkout.html'):
 				request.session['order_number'] = order_number
 				receipt_url = urlresolvers.reverse('checkout_receipt')
 				return HttpResponseRedirect(receipt_url)
-			else:
-				message = 'Somethings broke'
 		else:
 			error_message = 'Correct the errors below'
+			
 	else:
-		form = CheckoutForm()
+		if request.user.is_authenticated():
+			user_profile = profile.retrieve(request)
+			form = CheckoutForm(instance=user_profile)
+		else:
+			form = CheckoutForm()
 	page_title = 'Checkout'
 	return render_to_response(template_name, locals(), context_instance=RequestContext(request))
 		

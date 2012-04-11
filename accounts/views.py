@@ -5,6 +5,8 @@ from django.core import urlresolvers
 from django.http import HttpResponseRedirect
 from djecomstore.checkout.models import Order, OrderItem
 from django.contrib.auth.decorators import login_required
+from djecomstore.accounts.forms import UserProfileForm
+from djecomstore.accounts import profile
 
 
 def register(request, template_name="registration/register.html"):
@@ -40,3 +42,17 @@ def order_details(request, order_id, template_name="registration/order_details.h
 	order_items = OrderItem.objects.filter(order=order)
 	return render_to_response(template_name, locals(), context_instance=RequestContext(request))
 	
+@login_required
+def order_info(request, template_name="registration/order_info.html"):
+	if request.method == 'POST':
+		postdata = request.POST.copy()
+		form = UserProfileForm(postdata)
+		if form.is_valid():
+			profile.set(request)
+			url = urlresolvers.reverse('my_account')
+			return HttpResponseRedirect(url)
+	else:
+		user_profile = profile.retrieve(request)
+		form = UserProfileForm(instance=user_profile)
+	page_title = 'Edit Order Information'
+	return render_to_response(template_name, locals(), context_instance=RequestContext(request))

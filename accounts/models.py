@@ -1,3 +1,9 @@
 from django.db import models
+from django.contrib.auth.models import User
+from djecomstore.checkout.models import BaseOrderInfo
 
-# Create your models here.
+class UserProfile(BaseOrderInfo):
+	user = models.ForeignKey(User, unique=True)
+	
+	def __unicode__(self):
+		return 'User Profile for: ' + self.user.username
