@@ -6,6 +6,8 @@ CURRENT_PATH = os.path.abspath(os.path.dirname(__file__).decode('utf-8')).replac
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+PRODUCTS_PER_PAGE = 12
+
 # Change to true before deploying into production
 ENABLE_SSL = False
 
@@ -135,6 +137,7 @@ INSTALLED_APPS = (
     'django.contrib.flatpages',
     'djecomstore.checkout',
     'djecomstore.accounts',
+    'djecomstore.search',
 )
 
 # A sample logging configuration. The only tangible logging

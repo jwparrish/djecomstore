@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load search_tags %}
 {% load catalog_tags %}
 
 {% block site_wrapper %}
@@ -20,7 +21,7 @@
 		<div id="middle">
 			<div id="sidebar">
 				<div class="sidebarIEPadder">
-					[search box here]
+					{% search_box request %}
 					<br />
 					{% category_list request.path %}
 				</div>

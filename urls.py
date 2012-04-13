@@ -25,6 +25,7 @@ urlpatterns = patterns('',
     (r'^checkout/', include('checkout.urls')),
     (r'^accounts/', include('accounts.urls')),
     (r'^accounts/', include('django.contrib.auth.urls')),
+    (r'^search/', include('search.urls')),
 )
 
 handler404 = 'djecomstore.views.file_not_found_404'
