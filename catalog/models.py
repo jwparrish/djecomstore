@@ -1,5 +1,9 @@
 from django.db import models
 
+class ActiveCategoryManager(models.Manager):
+	def get_query_set(self):
+		return super(ActiveCategoryManager, self).get_query_set().filter(is_active=True)
+
 class Category(models.Model):
 	name = models.CharField(max_length=50)
 	slug = models.SlugField(max_length=50, unique=True, help_text='Unique value for product page URL, created from name.')
@@ -9,6 +13,8 @@ class Category(models.Model):
 	meta_description = models.CharField('Meta Description', max_length=255, help_text='Content for description meta tag')
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
+	objects = models.Manager()
+	active = ActiveCategoryManager()
 	
 	class Meta:
 		db_table = 'categories'
@@ -21,6 +27,10 @@ class Category(models.Model):
 	@models.permalink
 	def get_absolute_url(self):
 		return ('catalog_category', (), { 'category_slug': self.slug })
+		
+class ActiveProductManager(models.Manager):
+	def get_query_set(self):
+		return super(ActiveProductManager, self).get_query_set().filter(is_active=True)
 		
 class Product(models.Model):
 	name = models.CharField(max_length=255, unique=True)
@@ -42,6 +52,8 @@ class Product(models.Model):
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
 	categories = models.ManyToManyField(Category)
+	objects = models.Manager()
+	active = ActiveProductManager()
 	
 	class Meta:
 		db_table = 'products'
