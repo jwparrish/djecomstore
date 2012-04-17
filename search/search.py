@@ -1,6 +1,7 @@
 from djecomstore.search.models import SearchTerm
 from djecomstore.catalog.models import Product
 from django.db.models import Q
+from djecomstore.stats import stats
 
 STRIP_WORDS = ['a','an','and','by','for','from','in','no','not','of','on','or','that','the','to','with']
 

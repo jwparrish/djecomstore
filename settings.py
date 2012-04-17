@@ -3,6 +3,8 @@ import os.path
 
 CURRENT_PATH = os.path.abspath(os.path.dirname(__file__).decode('utf-8')).replace('\\', '/')
 
+PRODUCTS_PER_ROW = 4
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -138,6 +140,7 @@ INSTALLED_APPS = (
     'djecomstore.checkout',
     'djecomstore.accounts',
     'djecomstore.search',
+    'djecomstore.stats',
 )
 
 # A sample logging configuration. The only tangible logging

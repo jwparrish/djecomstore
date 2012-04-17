@@ -1,5 +1,12 @@
 {% extends "catalog.html" %}
 
+{% load catalog_tags %}
+
 {% block content %}
-	<h2>Welcome!</h2>
+	<h1>Welcome!</h1>
+	This is a test
+	{% product_list recently_viewed 'Your Recently Viewed' %}
+	{% product_list view_recs 'Similiar Products' %}
+	{% product_list featured 'Featured Products' %}
+	{% product_list search_recs 'Recommended For You' %}
 {% endblock %}

@@ -10,5 +10,6 @@ class SearchForm(forms.ModelForm):
 		default_text = 'Search'
 		self.fields['q'].widget.attrs['value'] = default_text
 		self.fields['q'].widget.attrs['onfocus'] ="if (this.value=='" + default_text + "')this.value = ''"
+		self.fields['q'].widget.attrs['size'] = 14
 	
 	include = ('q',)

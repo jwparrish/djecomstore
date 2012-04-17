@@ -5,8 +5,14 @@ from django.core import urlresolvers
 from djecomstore.cart import cart
 from django.http import HttpResponseRedirect
 from djecomstore.catalog.forms import ProductAddToCartForm
+from djecomstore.stats import stats
+from djecomstore.settings import PRODUCTS_PER_ROW
 
 def index(request, template_name='catalog/index.html'):
+	search_recs = stats.recommended_from_search(request)
+	featured = Product.featured.all()[0:PRODUCTS_PER_ROW]
+	recently_viewed = stats.get_recently_viewed(request)
+	view_recs = stats.recommended_from_views(request)
 	page_title = 'Musical Instruments and Sheet Music for Musicians'
 	return render_to_response(template_name, locals(), context_instance=RequestContext(request))
 	
@@ -24,6 +30,7 @@ def show_product(request, product_slug, template_name='catalog/product.html'):
 	page_title = p.name
 	meta_keywords = p.meta_keywords
 	meta_description = p.meta_description
+	stats.log_product_view(request, p) # add to product view
 	# evaluate the HTTP method
 	if request.method == 'POST':
 		# add to cart, create the bound form
