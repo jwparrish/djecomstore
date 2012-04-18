@@ -1,5 +1,5 @@
 from django import forms
-from djecomstore.catalog.models import Product
+from djecomstore.catalog.models import Product, ProductReview
 
 class ProductAdminForm(forms.ModelForm):
 	class Meta:
@@ -26,3 +26,7 @@ class ProductAddToCartForm(forms.Form):
 				raise forms.ValidationError("Cookies must be enabled.")
 			return self.cleaned_data
 			
+class ProductReviewForm(forms.ModelForm):
+	class Meta:
+		model = ProductReview
+		exclude = ('user', 'product', 'is_approved')
