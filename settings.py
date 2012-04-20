@@ -141,6 +141,7 @@ INSTALLED_APPS = (
     'djecomstore.accounts',
     'djecomstore.search',
     'djecomstore.stats',
+    'tagging',
 )
 
 # A sample logging configuration. The only tangible logging

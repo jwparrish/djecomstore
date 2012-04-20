@@ -10,6 +10,7 @@ from djecomstore.settings import PRODUCTS_PER_ROW
 from django.contrib.auth.decorators import login_required
 from django.template.loader import render_to_string
 from django.utils import simplejson
+from django.views.decorators.csrf import csrf_exempt
 
 
 from django.http import HttpResponse
@@ -69,6 +70,7 @@ def show_product(request, product_slug, template_name='catalog/product.html'):
 	request.session.set_test_cookie()
 	return render_to_response('catalog/product.html', locals(), context_instance=RequestContext(request))
 	
+
 @login_required
 def add_review(request):
 	form = ProductReviewForm(request.POST)
