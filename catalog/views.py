@@ -111,3 +111,12 @@ def add_tag(request):
 	else:
 		response = simplejson.dumps({'success': 'False'})
 	return HttpResponse(response, content_type='application/javascript; charset=utf-8')
+	
+def tag_cloud(request, template_name="catalog/tag_cloud.html"):
+	product_tags = Tag.objects.cloud_for_model(Product, steps=9, distribution=tagging.utils.LOGARITHMIC, filters={'is_active': True})
+	page_title = 'Product Tag Cloud'
+	return render_to_response(template_name, locals(), context_instance = RequestContext(request))
+	
+def tag(request, tag, template_name="catalog/tag.html"):
+	products = TaggedItem.objects.get_by_model(Product.active, tag)
+	return render_to_response(template_name, locals(), context_instance=RequestContext(request))
