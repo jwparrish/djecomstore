@@ -290,3 +290,7 @@ fieldset.my_account ul li {
 .hidden { display:none; }
 .visible { display:block; }
 .new_review{background-color:Pink;}
+
+#tags a {
+	color: DarkOrange;
+}

@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+import tagging
+
 class ActiveCategoryManager(models.Manager):
 	def get_query_set(self):
 		return super(ActiveCategoryManager, self).get_query_set().filter(is_active=True)
@@ -103,6 +105,12 @@ class Product(models.Model):
 		items = OrderItem.objects.filter( Q(order__in=orders) | Q(order__user__in=users)).exclude(product=self)
 		products = Product.active.filter(orderitem__in=items).distinct()
 		return products
+		
+try:
+	tagging.register(Product)
+except tagging.AlreadyRegistered:
+	pass
+	
 		
 class ActiveProductReviewManager(models.Manager):
 	def all(self):

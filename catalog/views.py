@@ -17,6 +17,9 @@ from django.http import HttpResponse
 from djecomstore.catalog.models import Product
 from django.core import serializers
 
+import tagging
+from tagging.models import Tag, TaggedItem
+
 def get_json_products(request):
 	products = Product.active.all()
 	json_products = serializers.serialize("json", products)
@@ -91,3 +94,20 @@ def add_review(request):
 		response = simplejson.dumps({'success':'False', 'html': html})
 	return HttpResponse(response, content_type='application/javascript; charset=utf-8')
 	
+@login_required
+def add_tag(request):
+	tags = request.POST.get('tag', '')
+	slug = request.POST.get('slug', '')
+	if len(tags) > 2:
+		p = Product.active.get(slug=slug)
+		html = ''
+		template = "catalog/tag_link.html"
+		for tag in tags.split():
+			tag.strip(',')
+			Tag.objects.add_tag(p, tag)
+		for tag in p.tags:
+			html += render_to_string(template, {'tag': tag})
+		response = simplejson.dumps({'success': 'True', 'html': html})
+	else:
+		response = simplejson.dumps({'success': 'False'})
+	return HttpResponse(response, content_type='application/javascript; charset=utf-8')

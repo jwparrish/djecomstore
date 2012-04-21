@@ -62,6 +62,20 @@ function addProductReview() {
 			}
 		}, "json");
 	}
+	
+function addTag() {
+	tag = { tag: jQuery("#id_tag").val(),
+		     slug: jQuery("#id_slug").val() };
+	jQuery.post("/tag/product/add/", tag,
+		     function(response) {
+			     if (response.success == "True") {
+				     jQuery("#tags").empty();
+				     jQuery("#tags").append(response.html);
+				     jQuery("#id_tag").val("");
+			     }
+		     }, "json");
+}
+
 
 function prepareDocument(){
 	jQuery("form#search").submit(function() {
@@ -78,6 +92,15 @@ function prepareDocument(){
 	jQuery("#add_review").click(slideToggleReviewForm);
 	jQuery("#add_review").addClass('visible');
 	jQuery("#cancel_review").click(slideToggleReviewForm);
+	
+	// tagging functionality to prepareDocument()
+	jQuery("#add_tag").click(addTag);
+	jQuery("#id_tag").keypress(function(event){
+		if (event.keyCode == 13 && jQuery("#id_tag").val().length > 2) {
+			addTag();
+			event.preventDefault();
+		}
+	});
 }
 
 jQuery(document).ready(prepareDocument);
