@@ -76,6 +76,13 @@ function addTag() {
 		     }, "json");
 }
 
+function statusBox() {
+	jQuery('<div id="loading">Loading...</div>')
+	.prependTo("#main")
+	.ajaxStart(function(){jQuery(this).show();})
+	.ajaxStop(function(){jQuery(this).hide();})
+}
+
 
 function prepareDocument(){
 	jQuery("form#search").submit(function() {
@@ -101,6 +108,7 @@ function prepareDocument(){
 			event.preventDefault();
 		}
 	});
+	statusBox();
 }
 
 jQuery(document).ready(prepareDocument);
