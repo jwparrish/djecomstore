@@ -2,49 +2,52 @@
 {% load catalog_filters %}
 
 {% block content %}
-	<div class="product_image">
-		<img src="{{ p.image.url }}" alt="{{ p.name }}" />
-		{{ p.image_caption }}
-	</div>
-	<h1>{{ p.name }}</h1>
-	Brand: <em>{{ p.brand }}</em>
-	<br /><br />
-	SKU: {{ p.sku }}
-	<br />
-	In categor{{ categories.count|pluralize:"y, ies" }}:
-		{% for c in categories %}
-			<a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
-			{% if not forloop.last %}
-				,
-			{% endif %}
-		{% endfor %}
-	<br /><br />
-	{% if p.sale_price %}
-		Was: <del>$ {{ p.old_price }}</del>
+	<div xmlns:v="http://rdf.data-vocabulary.org/#" about="{{ p.get_absolute_url }}" typeof="v:Product">
+		<div class="product_image">
+			<img src="{{ p.image.url }}" alt="{{ p.name }}" />
+			{{ p.image_caption }}
+		</div>
+		<h1><span property="v:name">{{ p.name }}</span></h1>
+		Brand: <em><span property="v:brand">{{ p.brand }}</span></em>
+		<br /><br />
+		SKU: {{ p.sku }}
 		<br />
-		Now: ${{ p.price }}
-	{% else %}
-		Price: ${{ p.price }}
-	{% endif %}
-	<br /><br />
-		<form method="post" action="." class="cart"> {% csrf_token %}
-			{{ form.as_p }}
+		In categor{{ categories.count|pluralize:"y, ies" }}:
+			{% for c in categories %}
+				<a href="{{ c.get_absolute_url }}"><span property="v:category">{{ c.name }}</span></a>
+				{% if not forloop.last %}
+					,
+				{% endif %}
+			{% endfor %}
+		<br /><br />
+		{% if p.sale_price %}
+			Was: <del>{{ p.old_price|currency }}</del>
 			<br />
-			<input type="submit" value="Add to Cart" name="submit" alt="Add to Cart" />
-		</form>
-	<div class="cb"></div>
-	<br /><br />
-	<div class="cb"><br /><br /></div>
-	<h3>Related Products</h3>
-		{% for p in p.cross_sells_hybrid %}
-			{% include 'tags/product_thumbnail.html' %}
-		{% empty %}
-			No related products.
-		{% endfor %}
-	<div class="cb"><br /><br /></div>
-	<h3>Product Description</h3>
-		{{ p.description }}
-	<div class="cb"><br /><br /></div>
+			Now: <span property="v:price">{{ p.price|currency }}</span>
+		{% else %}
+			Price:<span property="v:price">{{ p.price|currency }}</span>
+		{% endif %}
+		<br /><br />
+			<form method="post" action="." class="cart"> {% csrf_token %}
+				{{ form.as_p }}
+				<br />
+				<input type="submit" value="Add to Cart" name="submit" alt="Add to Cart" />
+			</form>
+		<div class="cb"></div>
+		<br /><br />
+		<div class="cb"><br /><br /></div>
+		<h3>Related Products</h3>
+			{% for p in p.cross_sells_hybrid %}
+				{% include 'tags/product_thumbnail.html' %}
+			{% empty %}
+				No related products.
+			{% endfor %}
+		<div class="cb"><br /><br /></div>
+		<h3>Product Description</h3>
+		<span property="v:description">{{ p.description }}</span>
+	</div>
+
+		<div class="cb"><br /><br /></div>
 		<h3>Product Tags</h3>
 		
 			<div id="tags">

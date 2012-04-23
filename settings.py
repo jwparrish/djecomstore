@@ -110,6 +110,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
     'djecomstore.SSLMiddleware.SSLRedirect',
+    'djecomstore.marketing.urlcanon.URLCanonicalizationMiddleware',
 )
 
 ROOT_URLCONF = 'djecomstore.urls'
@@ -142,6 +143,7 @@ INSTALLED_APPS = (
     'djecomstore.search',
     'djecomstore.stats',
     'tagging',
+    'django.contrib.sitemaps',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -191,3 +193,6 @@ AUTHNET_KEY = '4J89zqLr5Te9t9JN'
 LOGIN_REDIRECT_URL = '/accounts/my_account/'
 
 AUTH_PROFILE_MODULE = 'accounts.userprofile'
+
+CANON_URL_HOST = 'www.django-ecommerce.com'
+CANON_URLS_TO_REWRITE = ['django-ecommerce.com', 'modernmusician.com']
