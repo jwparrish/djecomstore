@@ -1,5 +1,5 @@
 from django.conf.urls.defaults import *
-from djecomstore.marketing.sitemaps import SITEMAPS
+from djecomstore.marketing.sitemap import SITEMAPS
 
 urlpatterns = patterns('djecomstore.marketing.views',
 	(r'^robots\.txt$', 'robots'),
