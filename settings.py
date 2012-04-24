@@ -111,6 +111,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
     'djecomstore.SSLMiddleware.SSLRedirect',
     'djecomstore.marketing.urlcanon.URLCanonicalizationMiddleware',
+    'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
 )
 
 ROOT_URLCONF = 'djecomstore.urls'
@@ -144,6 +145,7 @@ INSTALLED_APPS = (
     'djecomstore.stats',
     'tagging',
     'django.contrib.sitemaps',
+    'django.contrib.redirects',
 )
 
 # A sample logging configuration. The only tangible logging
