@@ -5,16 +5,18 @@ from django.core import urlresolvers
 from django.http import HttpResponseRedirect
 from djecomstore.checkout.models import Order, OrderItem
 from django.contrib.auth.decorators import login_required
-from djecomstore.accounts.forms import UserProfileForm
+from djecomstore.accounts.forms import UserProfileForm, RegistrationForm
 from djecomstore.accounts import profile
 
 
 def register(request, template_name="registration/register.html"):
 	if request.method == 'POST':
 		postdata = request.POST.copy()
-		form = UserCreationForm(postdata)
+		form = RegistrationForm(postdata)
 		if form.is_valid():
-			form.save()
+			user = form.save(commit=False)
+			user.email = postdata.get('email','')
+			user.save()
 			un = postdata.get('username','')
 			pw = postdata.get('password1','')
 			from django.contrib.auth import login, authenticate
@@ -24,7 +26,7 @@ def register(request, template_name="registration/register.html"):
 				url = urlresolvers.reverse('my_account')
 				return HttpResponseRedirect(url)
 	else:
-		form = UserCreationForm()
+		form = RegistrationForm()
 	page_title = 'User Registration'
 	return render_to_response(template_name, locals(), context_instance=RequestContext(request))
 	

@@ -1,11 +1,11 @@
-# Django settings for djecomstore project.
 import os.path
+import os
 
 CURRENT_PATH = os.path.abspath(os.path.dirname(__file__).decode('utf-8')).replace('\\', '/')
 
 PRODUCTS_PER_ROW = 4
 
-DEBUG = True
+DEBUG = True #if os.environ.get('LOCAL_DEBUG','') else False
 TEMPLATE_DEBUG = DEBUG
 
 PRODUCTS_PER_PAGE = 12
@@ -198,3 +198,8 @@ AUTH_PROFILE_MODULE = 'accounts.userprofile'
 
 CANON_URL_HOST = 'www.django-ecommerce.com'
 CANON_URLS_TO_REWRITE = ['django-ecommerce.com', 'modernmusician.com']
+
+try:
+	from settings_local import *
+except ImportError:
+	pass
