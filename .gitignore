@@ -1,0 +1,7 @@
+*.pyc
+*~
+*.DS_Store
+#*
+*db
+settings_local.py
+Authorize.net test profile
