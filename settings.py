@@ -105,6 +105,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'django.contrib.csrf.middleware.CsrfMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
     'djecomstore.SSLMiddleware.SSLRedirect',
     'djecomstore.marketing.urlcanon.URLCanonicalizationMiddleware',
