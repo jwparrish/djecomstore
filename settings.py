@@ -144,6 +144,7 @@ INSTALLED_APPS = (
     'tagging',
     'django.contrib.sitemaps',
     'django.contrib.redirects',
+    'billing',
 )
 
 # A sample logging configuration. The only tangible logging
