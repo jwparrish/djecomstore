@@ -198,6 +198,12 @@ AUTH_PROFILE_MODULE = 'accounts.userprofile'
 CANON_URL_HOST = 'www.django-ecommerce.com'
 CANON_URLS_TO_REWRITE = ['django-ecommerce.com', 'modernmusician.com']
 
+#SESSION_COOKIE_DAYS = 90
+SESSION_AGE_DAYS = 90
+SESSION_COOKIE_AGE = 60 * 60 * 24 * SESSION_AGE_DAYS 
+
+SESSION_AGE_DAYS = 90
+
 try:
 	from settings_local import *
 except ImportError:

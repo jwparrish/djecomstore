@@ -2,6 +2,10 @@ from djecomstore.cart.models import CartItem
 from djecomstore.catalog.models import Product
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
+from django.conf import settings
+from django.db.models import Max
+from djecomstore.settings import SESSION_AGE_DAYS
+from datetime import datetime, timedelta
 
 import decimal # not needed yet but we will later
 import random
@@ -94,4 +98,17 @@ def is_empty(request):
 def empty_cart(request):
 	user_cart = get_cart_items(request)
 	user_cart.delete()
-			
+	
+def remove_old_cart_items():
+	print "Removing old carts"
+	# calculate date of SESSION_AGE_DAYS days ago
+	remove_before = datetime.now() + timedelta(days=-settings.SESSION_AGE_DAYS)
+	cart_ids = []
+	old_items = CartItem.objects.values('cart_id').annotate(last_change=Max('date_added')).filter(last_change__lt=remove_before).order_by()
+	# create a list of cart IDs that haven't been modified
+	for item in old_items:
+		cart_ids.append(item['cart_id'])
+	to_remove = CartItem.objects.filter(cart_id__in=cart_ids)
+	# delete those CartItem instances
+	to_remove.delete()
+	print str(len(cart_ids)) + " carts were removed"
