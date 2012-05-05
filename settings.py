@@ -145,6 +145,7 @@ INSTALLED_APPS = (
     'django.contrib.sitemaps',
     'django.contrib.redirects',
     'billing',
+    
 )
 
 # A sample logging configuration. The only tangible logging
@@ -203,6 +204,11 @@ SESSION_AGE_DAYS = 90
 SESSION_COOKIE_AGE = 60 * 60 * 24 * SESSION_AGE_DAYS 
 
 SESSION_AGE_DAYS = 90
+
+CACHE_BACKEND = "memcached://127.0.0.1:11211/"
+
+# seconds to keep items in the cache
+CACHE_TIMEOUT = 60 * 60
 
 try:
 	from settings_local import *

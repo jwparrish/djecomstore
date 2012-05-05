@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save, post_delete
+from djecomstore.caching.caching import cache_update, cache_evict
 
 import tagging
 
@@ -30,6 +32,10 @@ class Category(models.Model):
 	@models.permalink
 	def get_absolute_url(self):
 		return ('catalog_category', (), { 'category_slug': self.slug })
+		
+	@property
+	def cache_key(self):
+		return self.get_absolute_url()
 		
 class ActiveProductManager(models.Manager):
 	def get_query_set(self):
@@ -106,6 +112,10 @@ class Product(models.Model):
 		products = Product.active.filter(orderitem__in=items).distinct()
 		return products
 		
+	@property
+	def cache_key(self):
+		return self.get_absolute_url()
+		
 try:
 	tagging.register(Product)
 except tagging.AlreadyRegistered:
@@ -129,3 +139,8 @@ class ProductReview(models.Model):
 	
 	objects = models.Manager()
 	approved = ActiveProductReviewManager()
+	
+post_save.connect(cache_update, sender=Product)
+post_delete.connect(cache_evict, sender=Product)
+post_save.connect(cache_update, sender=Category)
+post_delete.connect(cache_evict, sender=Category)
