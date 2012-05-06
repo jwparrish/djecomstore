@@ -1,5 +1,6 @@
 import os.path
 import os
+import sys
 
 CURRENT_PATH = os.path.abspath(os.path.dirname(__file__).decode('utf-8')).replace('\\', '/')
 
@@ -214,3 +215,10 @@ try:
 	from settings_local import *
 except ImportError:
 	pass
+	
+# if manage.py test was called, use test settings
+if 'test' in sys.argv:
+	try:
+		from test_settings import *
+	except ImportError:
+		pass
