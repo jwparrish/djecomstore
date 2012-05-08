@@ -1,16 +1,8 @@
-"""
-This file demonstrates writing tests using the unittest module. These will pass
-when you run "manage.py test".
+from django.test import TestCase, Client
+from djecomstore.billing.passkey import encrypt, decrypt
 
-Replace this with more appropriate tests for your application.
-"""
-
-from django.test import TestCase
-
-
-class SimpleTest(TestCase):
-    def test_basic_addition(self):
-        """
-        Tests that 1 + 1 always equals 2.
-        """
-        self.assertEqual(1 + 1, 2)
+class EncryptionTestCase(TestCase):
+	def test_encrypt_decrypt(self):
+		to_encrypt = 'Some text here'
+		self.failUnlessEqual(to_encrypt, decrypt(encrypt(to_encrypt)))
+		self.failIfEqual(to_encrypt, encrypt(to_encrypt))

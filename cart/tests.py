@@ -88,3 +88,17 @@ class CartTestCase(TestCase):
 		response = self.client.post(product_url, postdata)
 		expected_error = unicode(ProductAddToCartForm.base_fields['quantity'].error_messages['invalid'])
 		self.assertFormError(response, "form", "quantity", [expected_error])
+		
+	def test_add_to_cart_fails_csrf(self):
+		quantity = 2
+		product_url = self.product.get_absolute_url()
+		response = self.client.get(product_url)
+		self.assertEqual(response.status_code, httplib.OK)
+		
+		# perform the post of adding to the cart
+		postdata = {'product_slug': self.product.slug,
+					'quantity': quantity }
+		response = self.client.post(product_url, postdata)
+		
+		# assert forbidden error due to missing CSRF input
+		self.assertEqual(response.status_code, httplib.FORBIDDEN)
