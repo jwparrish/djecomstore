@@ -1,16 +1,41 @@
-"""
-This file demonstrates writing tests using the unittest module. These will pass
-when you run "manage.py test".
+from django.test import TestCase, Client
+form django.core import urlresolvers
 
-Replace this with more appropriate tests for your application.
-"""
+from djecomstore.checkout.forms import CheckoutForm
+from djecomstore.checkout.models import Order, OrderItem
+from djecomstore.catalog.models import Category, Product
+from djecomstore.cart import cart
+from djecomstore.cart.models import CartItem
 
-from django.test import TestCase
+import httplib
 
-
-class SimpleTest(TestCase):
-    def test_basic_addition(self):
-        """
-        Tests that 1 + 1 always equals 2.
-        """
-        self.assertEqual(1 + 1, 2)
+class CheckoutTestCase(TestCase):
+	def setUp(self):
+		self.client = Client()
+		home_url = urlresolvers.reverse('catalog_home')
+		self.checkout_url = urlresolvers.reverse('checkout')
+		self.client.get(home_url)
+		# need to create customer with a shopping cart first
+		self.item = CartItem()
+		product = Product.active.all()[0]
+		self.item.product = product
+		self.item.cart_id = self.client.session[cart.CART_ID_SESSION_KEY]
+		self.item.quantity = 1
+		self.item.save()
+		
+	def test_checkout_page_empty_cart(self):
+		""" empty cart should be redirected to cart page """
+		client = Client()
+		cart_url = urlresolvers.reverse('show_cart')
+		response = client.get(self.checkout_url)
+		self.assertRedirects(response, cart_url)
+		
+	def test_submit_empty_form(self):
+		""" empty form should raise error on required fields """
+		form = CheckoutForm()
+		response = self.client.post(self.checkout_url, form.initial)
+		for name, field in form.fields.iteritems():
+			value = form.fields[name]
+			if not value and form.fields[name].required:
+				error_msg = form.fields[name].error_messages['required']
+				self.assertFormError(response, "form", name, [error_msg])6
